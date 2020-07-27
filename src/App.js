@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NavigationBar from './components/NavigationBar';
+import SearchBar from './components/SearchBar';
+import { Container } from 'react-bootstrap';
+import CardList from './components/CardList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    profiles: [],
+  };
+  addNewProfile = (profileData) => {
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData],
+    }));
+  };
+  render() {
+    return (
+      <Container>
+        <NavigationBar />
+        <div>{this.props.title}</div>
+        <SearchBar onSubmit={this.addNewProfile} />
+        <CardList profiles={this.state.profiles} />
+      </Container>
+
+    );
+  };
 }
-
 export default App;
